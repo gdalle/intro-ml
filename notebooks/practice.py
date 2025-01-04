@@ -51,7 +51,31 @@ def _(sklearn):
 
 @app.cell
 def _(titanic):
-    titanic.data
+    titanic.feature_names
+    return
+
+
+@app.cell
+def _(titanic):
+    X = titanic.data
+    return (X,)
+
+
+@app.cell
+def _(titanic):
+    y = titanic.target
+    return (y,)
+
+
+@app.cell
+def _(X):
+    X
+    return
+
+
+@app.cell
+def _(y):
+    y
     return
 
 
