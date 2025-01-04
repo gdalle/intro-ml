@@ -21,6 +21,8 @@ def _(mo):
     mo.md(
         """
     To display this notebook, go to ...
+
+    Then you can edit its cells and run them entirely in your browser.
     """
     ).callout(kind="info")
     return
@@ -31,7 +33,7 @@ def _():
     import matplotlib.pyplot as plt
     import pandas as pd
     import numpy as np
-    import sklearn
+    import sklearn, sklearn.datasets
     return np, pd, plt, sklearn
 
 

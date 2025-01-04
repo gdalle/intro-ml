@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.10.9"
-app = marimo.App(width="medium")
+app = marimo.App(width="medium", layout_file="layouts/theory.slides.json")
 
 
 @app.cell
