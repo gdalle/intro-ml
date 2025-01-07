@@ -18,16 +18,6 @@ def _():
 
 @app.cell
 def _(mo):
-    mo.md(
-        """
-    To display this notebook, go to ...
-    """
-    ).callout(kind="info")
-    return
-
-
-@app.cell
-def _(mo):
     mo.md("""## Key concepts""")
     return
 
@@ -158,6 +148,7 @@ def _(mo):
         """
         ### Courses
 
+        * [Scikit-learn MOOC by its creators](https://inria.github.io/scikit-learn-mooc/)
         * [Google Machine Learning Education](https://developers.google.com/machine-learning)
         * [Coursera Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction)
         """
