@@ -32,9 +32,9 @@ def _(mo):
         {
             "Thinking humanly": mo.md("""
             > “The exciting new effort to make computers think... machines with minds, in the full and literal sense.” (Haugeland, 1985)
-            
+
             > “The study of mental faculties through the use of computational models.” (Charniak and McDermott, 1985)  
-            
+
             > “[The automation of] activities that we associate with human thinking, activities such as decision-making, problem solving, learning...” (Bellman, 1978)
             """),
             "Thinking rationally": mo.md("""
@@ -49,7 +49,7 @@ def _(mo):
             """),
             "Acting rationally": mo.md("""
             > “Computational Intelligence is the study of the design of intelligent agents.” (Poole et al., 1998)
-            
+
             > “AI... is concerned with intelligent behavior in artifacts.” (Nilsson, 1998)
             """),
         }
@@ -79,35 +79,35 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    examples = mo.carousel(
-        [
-            mo.md(
+    examples = mo.accordion(
+        {
+         "Traveling Salesman Problem":   mo.md(
                 f"""
-                [Traveling Salesman Problem](https://www.math.uwaterloo.ca/tsp/)
+                <https://www.math.uwaterloo.ca/tsp/>
 
                 {mo.image("https://www.math.uwaterloo.ca/tsp/uk/img/uk49_main_all.jpg")}
                 """
             ),
-            mo.md(
+            "Traffic prediction with advanced Graph Neural Networks": mo.md(
                 f"""
-                [Traffic prediction with advanced Graph Neural Networks](https://deepmind.google/discover/blog/traffic-prediction-with-advanced-graph-neural-networks/)
+                <https://deepmind.google/discover/blog/traffic-prediction-with-advanced-graph-neural-networks/>
 
-                {mo.image("https://lh3.googleusercontent.com/10gs2ePja3zSVz-A3q4StIw0CAFDprEgXW_qkmx4yPFjrKxenIiYvvkrWCM5jkCoyxNYoqWgw9PHmupJM5sngjVkM5Q2GVCpM0Tuxk1lsQQ8oFmw3gY=w616-rw")}
+                {mo.image("https://lh3.googleusercontent.com/uD-xEFB9SggZTkd_BN1566SHdO1xVe4RiALacVVE377xrxM_Mlg68CPzUjQmq_quBmAJo4Rl5_MQYO81CX1oYSw_9iT51eIXaIgonOvEIqWlVHezN3E=w616-rw")}
                 """
             ),
-            mo.md(
+            "World scale inverse reinforcement learning in Google Maps": mo.md(
                 f"""
-                [World scale inverse reinforcement learning in Google Maps](https://research.google/blog/world-scale-inverse-reinforcement-learning-in-google-maps/)
+                <https://research.google/blog/world-scale-inverse-reinforcement-learning-in-google-maps/>
 
                 {mo.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHUdaeXJURVEV2f--mytRfbx5k3yftkMKBpuu43GKhyMaAa-fJC3O4QfTxZjz3hkGjUsCBiO6LLcYRsGeyrpOgIUzDDPW1lOwlr47YXKSLUwJuXxMELxRV9SKcr4BDoy5_2HzcFZX-Wb7m3PcQhWvx1efvG5gkXG_HfrhqrqfZ_xrNyBmSado-Wf_si3wH/s16000/image3.png")}
                 """
             ),
-        ]
+        }
     )
 
     mo.md(
         f"""
-        ### AI vs ML
+        ### From AI to ML
 
         {examples}
         """
@@ -119,24 +119,27 @@ def _(mo):
 def _(mo):
     learning_types = mo.accordion(
         {
-            "Supervised (or semi-supervised) learning": mo.md("""
-            - labeled data
-            - predict outcome
+            "Supervised learning": mo.md("""
+            |data type|goal|
+            |---|---|
+            |features and labels|predict outcome|
             """),
             "Unsupervised learning": mo.md("""
-            - unlabeled data
-            - find hidden structure
+            |data type|goal|
+            |---|---|
+            |features alone|find structure|
             """),
             "Reinforcement learning": mo.md("""
-            - interactive environment
-            - define policy for series of actions
+            |data type|goal|
+            |---|---|
+            |interactive environment|define action policy|
             """),
         }
     )
 
     mo.md(
         f"""
-        ### Types of learning
+        ### Learning paradigms
 
         {learning_types}
         """
@@ -146,108 +149,320 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### Types of labels
+    problems = mo.ui.tabs(
+        {
+            "Supervised": mo.accordion(
+                {
+                    "Regression": "Predict numeric label",
+                    "Classification": "Predict categorical label",
+                }
+            ),
+            "Unsupervised": mo.accordion(
+                {
+                    "Clustering": "Define groups of similar samples",
+                    "Dimensionality reduction": "Represent data in a simpler space",
+                }
+            ),
+        }
+    )
 
-        * Classification (categorical label)
-        * Regression (quantitative label)
+    mo.md(
+        f"""
+        ### Problem types
+
+        {problems}
+        """
+    )
+    return (problems,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        f"""
+        ### Choosing an algorithm
+
+        {mo.image("https://scikit-learn.org/stable/_downloads/b82bf6cd7438a351f19fac60fbc0d927/ml_map.svg")}
         """
     )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""## A few algorithms""")
+    mo.md("""## Linear models""")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Linear regression""")
+    mo.md(
+        r"""
+        ### Setting
+
+        - Goal: approximate an unknown function $f: \mathbf{x} \longmapsto y$
+        - Features $\mathbf{x} \in \mathbb{R}^d$, label $y \in \mathbb{R}$ (regression) or $y \in \{1, \dots, C\}$ (classification)
+        - Parametric family of approximations $\{f_\theta : \theta \in \Theta\}$ to choose from
+        - Dataset of samples $(\mathbf{x}^{(1)}, y^{(1)}), ..., (\mathbf{x}^{(n)}, y^{(n)})$ to train on
+        - Often represented as "tidy data": matrix of features $\mathbf{X}$ and vector of labels $\mathbf{y}$, with one row per sample
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Logistic regression""")
+    mo.md(
+        r"""
+        ### Linear regression
+
+        Hypothesis: the numeric label is a linear combination of the features.
+
+        $$\widehat{y} = f_\theta(\mathbf{x}) = \sum_{j=1}^d \theta_j x_j$$
+
+        The parameter vector $\theta$ contains the weights of each feature.
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""### Nearest neighbors""")
+    mo.md(
+        r"""
+        ### Logistic regression
+
+            Actually a classification model.
+
+            Hypothesis: the frontier between both categories is a linear combination of the features.
+
+            $$\widehat{y} = f_\theta(\mathbf{x}) = \begin{cases} 1 & \text{if}~ \sum_{j=1}^d \theta_j x_j > 0 \\ 0 & \text{otherwise} \end{cases}$$
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""### Decision trees""")
+    mo.md(
+        r"""
+        ### Probabilistic perspective
+
+        Hypothesis: the label is generated randomly from the features
+
+        ||Linear regression|Logistic regression|
+        |---|---|---|
+        | Label distribution | Gaussian $y \sim \mathcal{N}(\mu, \sigma^2)$ | Bernoulli $y \sim \mathcal{B}(p)$ |
+        | Moment parameter | $\mu = \sum_j \theta_j x_j$, $\sigma$ fixed | $p = \mathrm{sigmoid}(\sum_j \theta_j x_j)$
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+        ### Likelihood and loss
+
+        The probabilistic perspective gives a natural way to select the parameter $\theta$: Maximum Likelihood Estimation (MLE)
+
+        For linear regression, the likelihood is given by
+
+        $$\mathbb{P}_\theta(y | \mathbb{x}) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-\frac{(y-\theta^\top \mathbf{x})^2}{2\sigma^2}\right)$$
+
+        The MLE is the solution to the Ordinary Least Squares problem on the training set:
+
+        $$\max_\theta ~ \mathbb{P}_\theta(y^{(1:n)} | \mathbf{x}^{(1:n)}) = \min_\theta ~ \sum_{i=1}^n (y^{(i)} - \theta^\top \mathbf{x}^{(i)})^2 $$
+
+        This function is also called a loss $\mathcal{L}(\theta)$.
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""## Main challenges""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+        ### Sources of error
+
+        - Approximation error: the right function is not in our parametric family
+        - Generalization error: the training set has not prepared us for every possibility
+        - Estimation error: we failed to compute the true minimizer of the loss
+
+        Plus all the sources of error linked to the data and pipeline
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    overfitting_img = mo.image(
+        "https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png",
+        caption="Source: `scikit-learn` documentation",
+    )
+
+    mo.md(
+        f"""
+        ### Underfitting / overfitting
+
+        | model complexity | phenomenon | consequence |
+        |---|---|---|
+        | too low | underfitting | bad performance during training |
+        | too high | overfitting | bad performance during testing |
+
+        {overfitting_img}
+        """
+    )
+    return (overfitting_img,)
+
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## Full pipeline""")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Preprocessing""")
+    mo.md(
+        """
+        ### Preprocessing
+
+        - Read data from source(s)
+        - Encode in the right format
+        - Clean up erroneous entries
+        - Handle missing values
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Training""")
+    mo.md(
+        """
+        ### Training
+
+        - Estimate best parameters based on the training set
+        - Minimizing a loss function with gradient descent
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Evaluation""")
+    mo.md(
+        """
+        ### Evaluation
+
+        - Done on a separate test set to prevent contamination
+        - Relies on a metric chosen in advance
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Metrics""")
+    mo.md(
+        """
+        ### Model selection
+
+        - Some model hyperparameters are chosen arbitrarily and not the result of training.
+        - Those must be chosen according to the performance on yet another set, the validation set.
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md("""## Software tools""")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""### Languages""")
+    mo.md(
+        r"""
+        ### Languages
+
+        [Python](https://www.python.org/) is the language of choice for machine learning.
+
+        There are other options with more specific skill sets:
+
+        - [R](https://www.r-project.org/) for traditional statistical analysis
+        - [Julia](https://julialang.org/) for [scientific machine learning](https://sciml.ai/) (ask me if you're curious)
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### `scikit-learn`""")
+    mo.md(
+        f"""
+        ### `scikit-learn`
+
+        - French product 🥐 initially developed at Inria
+        - Suite of basic machine learning tools
+        - No deep learning (usually not necessary)
+
+        {mo.image("https://github.com/scikit-learn/scikit-learn/blob/main/doc/logos/scikit-learn-logo.png?raw=true")}
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""### Choosing an algorithm""")
+    mo.md(
+        r"""
+        ### Other libraries
+
+        You already know some of these:
+
+        - [`pandas`](https://pandas.pydata.org/) / [`polars`](https://docs.pola.rs/) for data wrangling
+        - [`numpy`](https://numpy.org/) / [`scipy`](https://scipy.org/) for numerical and scientific computing
+        - [`matplotlib`](https://matplotlib.org/) / [`seaborn`](https://seaborn.pydata.org/) for visualization
+        - [`networkx`](https://networkx.org/) / [`rustworkx`](https://www.rustworkx.org/) for network science
+        """
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md("""## Going further""")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        """
+        ### Courses
+
+        * [The Illustrated Machine Learning website](https://illustrated-machine-learning.github.io/#/)
+        * [Scikit-learn MOOC by its creators](https://inria.github.io/scikit-learn-mooc/)
+        * [Google Machine Learning Education](https://developers.google.com/machine-learning)
+        * [Coursera Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction)
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         """
@@ -259,25 +474,6 @@ def _(mo):
         - `AIMA`: [Artificial Intelligence: A Modern Approach](https://aima.cs.berkeley.edu/) (Russell and Norvig, 2021)
         """
     )
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        """
-        ### Courses
-
-        * [Scikit-learn MOOC by its creators](https://inria.github.io/scikit-learn-mooc/)
-        * [Google Machine Learning Education](https://developers.google.com/machine-learning)
-        * [Coursera Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction)
-        """
-    )
-    return
-
-
-@app.cell
-def _():
     return
 
 
