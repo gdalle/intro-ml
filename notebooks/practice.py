@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.10.9"
-app = marimo.App(width="medium")
+app = marimo.App(width="medium", app_title="ML in 1h - practice")
 
 
 @app.cell(hide_code=True)
@@ -223,7 +223,7 @@ def _(mo):
 
 
 @app.cell
-def _(data, np, target):
+def _(data, target):
     from sklearn.model_selection import train_test_split
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -322,9 +322,7 @@ def _(X_test, pipe, y_test):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        """The default metric for our classifier is accuracy but choosing the right metric is a nontrivial task (https://scikit-learn.org/stable/modules/model_evaluation.html)"""
-    )
+    mo.md("""The default metric for our classifier is accuracy but choosing the right metric is a nontrivial task (https://scikit-learn.org/stable/modules/model_evaluation.html)""")
     return
 
 
